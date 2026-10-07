@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", "Noto Sans TC", "Segoe UI", system-ui, sans-serif;
+  --color-accent-50: #f0f7f6;
+  --color-accent-100: #d9ecea;
+  --color-accent-500: #2f7f78;
+  --color-accent-600: #23675f;
+  --color-accent-700: #1c524c;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+body {
+  @apply bg-stone-50 text-stone-900 antialiased dark:bg-stone-950 dark:text-stone-100;
+}
+@layer components {
+.card {
+  @apply rounded-lg border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900;
+}
+.input {
+  @apply h-9 w-full rounded-md border border-stone-300 bg-white px-2.5 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 dark:border-stone-700 dark:bg-stone-900;
+}
+.btn {
+  @apply inline-flex h-9 items-center justify-center gap-1.5 rounded-md border border-stone-300 bg-white px-3 text-sm font-medium hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800;
+}
+.btn-primary {
+  @apply inline-flex h-9 items-center justify-center gap-1.5 rounded-md bg-accent-600 px-4 text-sm font-semibold text-white hover:bg-accent-700 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.label {
+  @apply mb-1 block text-xs font-medium text-stone-500 dark:text-stone-400;
+}
+.chip {
+  @apply inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] font-semibold;
+}
+}
+
+/* keep secondary text readable (WCAG AA 4.5:1) in both themes */
+html:not(.dark) .text-stone-400:not([class*="dark:text-"]) {
+  color: var(--color-stone-500);
+}
+.dark .text-stone-500:not([class*="dark:text-"]) {
+  color: var(--color-stone-400);
+}
+/* visible keyboard focus everywhere */
+:where(button, a, select, input, textarea, summary, [tabindex]):not(.input):focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+}

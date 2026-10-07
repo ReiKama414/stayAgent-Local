@@ -1,0 +1,9 @@
+node_modules/
+.next/
+browser-profile/
+data/
+.env
+.env.*
+next-env.d.ts
+*.tsbuildinfo
+.next-qa/
